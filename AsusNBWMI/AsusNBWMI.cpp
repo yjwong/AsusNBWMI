@@ -46,6 +46,7 @@
  * Return:  0-255  Success, the byte was parsed correctly
  *          -1     Error, an invalid character was supplied
  */
+#ifdef DEBUG
 int AsusNBWMI::wmi_parse_hexbyte(const UInt8 *src)
 {
 	unsigned int x; /* For correct wrapping */
@@ -74,6 +75,7 @@ int AsusNBWMI::wmi_parse_hexbyte(const UInt8 *src)
 		return h | (x - 'A' + 10);
 	return -1;
 }
+#endif
 
 
 /**
@@ -83,6 +85,7 @@ int AsusNBWMI::wmi_parse_hexbyte(const UInt8 *src)
  *
  * Byte swap a binary GUID to match it's real GUID value
  */
+#ifdef DEBUG
 void AsusNBWMI::wmi_swap_bytes(UInt8 *src, UInt8 *dest)
 {
 	int i;
@@ -98,6 +101,7 @@ void AsusNBWMI::wmi_swap_bytes(UInt8 *src, UInt8 *dest)
 	
 	memcpy(dest + 8, src + 8, 8);
 }
+#endif
 
 
 /**
@@ -110,6 +114,7 @@ void AsusNBWMI::wmi_swap_bytes(UInt8 *src, UInt8 *dest)
  * Return:  'true'   @dest contains binary GUID
  *          'false'  @dest contents are undefined
  */
+#ifdef DEBUG
 bool AsusNBWMI::wmi_parse_guid(const UInt8 *src, UInt8 *dest)
 {
 	static const int size[] = { 4, 2, 2, 2, 6 };
@@ -129,12 +134,14 @@ bool AsusNBWMI::wmi_parse_guid(const UInt8 *src, UInt8 *dest)
 	
 	return true;
 }
+#endif
 
 
 /**
  * wmi_dump_wdg - dumps tables to dmesg
  * @src: guid_block *
  */
+#ifdef DEBUG
 void AsusNBWMI::wmi_dump_wdg(struct guid_block *g)
 {
 	char guid_string[37];
@@ -159,6 +166,7 @@ void AsusNBWMI::wmi_dump_wdg(struct guid_block *g)
 			DEBUG_LOG("ACPI_WMI_EVENT ");
 	}
 }
+#endif
 
 
 
